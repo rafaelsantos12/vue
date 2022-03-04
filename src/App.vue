@@ -1,17 +1,16 @@
 <template>
     <div class="corpo">
       <h1 class="titulo">{{titulo}}</h1>
-      <img :src="foto.url" :alt="foto.titulo">
-
+      <!-- <img :src="foto.url" :alt="foto.titulo"> -->
+      <input type="search" class="filtro" v-on:input="filtro = $event.target.value" placeholder="Digite aqui nome da foto"/>
+      {{filtro}}
       <ul  class="lista-foto">
         <li class="lista-fotos-item" v-for="foto of images" v-bind:key="foto._id">
           
-          <div class="painel">
-            <h2 class="painel-titulo">{{foto.titulo}}</h2>
-            <div class="painel-corpo"> 
-                <img class="imagem-responsivo" :src="foto.url" :alt="foto.titulo">
-            </div>
-          </div>
+          <Painel  :titulo="foto.titulo">
+            <img class="imagem-responsivo" :src="foto.url" :alt="foto.titulo">
+          </Painel>
+           
    
         </li>
       </ul>
@@ -20,7 +19,13 @@
 </template>
 
 <script>
+import Painel from './components/shared/painel/Painel.vue';
 export default {
+  
+  components:{
+    'Painel': Painel
+  },
+
   data () {
 
     return {
@@ -29,7 +34,8 @@ export default {
           url: "https://img.freepik.com/fotos-gratis/adoravel-cachorro-basenji-marrom-e-branco-sorrindo-e-dando-mais-uns-cinco-isolado-no-branco_346278-1657.jpg",
           titulo: "Cachoro"
         },
-        images:[]
+        images:[],
+        filtro:''
     }
   },
 
@@ -62,29 +68,8 @@ export default {
     margin: 10px 5px;
   }
 
-    .imagem-responsivo{
-      width: 100% ;
-    }
-    /* estilo do painel */ 
-
-   .painel {
-    padding: 0 auto;
-    border: solid 2px grey;
-    display: inline-block;
-    margin: 5px;
-    box-shadow: 5px 5px 10px grey;
-    width: 200px;
-    height: 100%;
-    vertical-align: top;
-    text-align: center;
+  .imagem-responsivo{
+    width: 100% ;
   }
 
-  .painel .painel-titulo {
-    text-align: center;
-    border: solid 2px;
-    background: lightblue;
-    margin: 0 0 15px 0;
-    padding: 10px;
-    text-transform: uppercase;
-  }
 </style>
